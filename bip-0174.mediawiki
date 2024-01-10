@@ -2,7 +2,7 @@
   BIP: 174
   Layer: Applications
   Title: Partially Signed Bitcoin Transaction Format
-  Author: Andrew Chow <achow101@gmail.com>
+  Author: Ava Chow <me@achow101.com>
   Comments-Summary: No comments yet.
   Comments-URI: https://github.com/bitcoin/bips/wiki/Comments:BIP-0174
   Status: Final
@@ -120,7 +120,7 @@ The currently defined global types are as follows:
 | <tt>PSBT_GLOBAL_TX_VERSION = 0x02</tt>
 | None
 | No key data
-| <tt><32-bit little endian uint version></tt>
+| <tt><32-bit little endian int version></tt>
 | The 32-bit little endian signed integer representing the version number of the transaction being created. Note that this is not the same as the PSBT version number specified by the PSBT_GLOBAL_VERSION field.
 | 2
 | 0
@@ -410,7 +410,7 @@ The currently defined per-input types are defined as follows:
 | <tt>PSBT_IN_REQUIRED_HEIGHT_LOCKTIME = 0x12</tt>
 | None
 | No key data
-| <tt><32-bit uiht locktime></tt>
+| <tt><32-bit uint locktime></tt>
 | 32 bit unsigned little endian integer less than 500000000 representing the minimum block height that this input requires to be set as the transaction's lock time.
 |
 | 0
@@ -453,7 +453,7 @@ The currently defined per-input types are defined as follows:
 | Taproot Key BIP 32 Derivation Path
 | <tt>PSBT_IN_TAP_BIP32_DERIVATION = 0x16</tt>
 | <tt><32 byte xonlypubkey></tt>
-| A 32 byte X-only public key involved in this input. It may be the internal key, or a key present in a leaf script.
+| A 32 byte X-only public key involved in this input. It may be the output key, the internal key, or a key present in a leaf script.
 | <tt><compact size uint number of hashes> <32 byte leaf hash>* <4 byte fingerprint> <32-bit little endian uint path element>*</tt>
 | A compact size unsigned integer representing the number of leaf hashes, followed by a list of leaf hashes, followed by the 4 byte master key fingerprint concatenated with the derivation path of the public key. The derivation path is represented as 32-bit little endian unsigned integer indexes concatenated with each other. Public keys are those needed to spend this output. The leaf hashes are of the leaves which involve this public key. The internal key does not have leaf hashes, so can be indicated with a <tt>hashes len</tt> of 0. Finalizers should remove this field after <tt>PSBT_IN_FINAL_SCRIPTWITNESS</tt> is constructed.
 |
@@ -591,7 +591,7 @@ determine which outputs are change outputs and verify that the change is returni
 | Taproot Key BIP 32 Derivation Path
 | <tt>PSBT_OUT_TAP_BIP32_DERIVATION = 0x07</tt>
 | <tt><32 byte xonlypubkey></tt>
-| A 32 byte X-only public key involved in this output. It may be the internal key, or a key present in a leaf script.
+| A 32 byte X-only public key involved in this output. It may be the output key, the internal key, or a key present in a leaf script.
 | <tt><compact size uint number of hashes> <32 byte leaf hash>* <4 byte fingerprint> <32-bit little endian uint path element>*</tt>
 | A compact size unsigned integer representing the number of leaf hashes, followed by a list of leaf hashes, followed by the 4 byte master key fingerprint concatenated with the derivation path of the public key. The derivation path is represented as 32-bit little endian unsigned integer indexes concatenated with each other. Public keys are those needed to spend this output. The leaf hashes are of the leaves which involve this public key. The internal key does not have leaf hashes, so can be indicated with a <tt>hashes len</tt> of 0. Finalizers should remove this field after <tt>PSBT_IN_FINAL_SCRIPTWITNESS</tt> is constructed.
 |
@@ -718,15 +718,8 @@ sign_non_witness(script_code, i):
         if IsMine(key) and IsAcceptable(sighash_type):
             sign(non_witness_sighash(script_code, i, input))
 
-for input,i in enumerate(psbt.inputs):
-    if non_witness_utxo.exists:
-        assert(sha256d(non_witness_utxo) == psbt.tx.input[i].prevout.hash)
-        if redeemScript.exists:
-            assert(non_witness_utxo.vout[psbt.tx.input[i].prevout.n].scriptPubKey == P2SH(redeemScript))
-            sign_non_witness(redeemScript, i)
-        else:
-            sign_non_witness(non_witness_utxo.vout[psbt.tx.input[i].prevout.n].scriptPubKey, i)
-    else if witness_utxo.exists:
+for input, i in enumerate(psbt.inputs):
+    if witness_utxo.exists:
         if redeemScript.exists:
             assert(witness_utxo.scriptPubKey == P2SH(redeemScript))
             script = redeemScript
@@ -737,6 +730,13 @@ for input,i in enumerate(psbt.inputs):
         else if IsP2WSH(script):
             assert(script == P2WSH(witnessScript))
             sign_witness(witnessScript, i)
+    else if non_witness_utxo.exists:
+        assert(sha256d(non_witness_utxo) == psbt.tx.input[i].prevout.hash)
+        if redeemScript.exists:
+            assert(non_witness_utxo.vout[psbt.tx.input[i].prevout.n].scriptPubKey == P2SH(redeemScript))
+            sign_non_witness(redeemScript, i)
+        else:
+            sign_non_witness(non_witness_utxo.vout[psbt.tx.input[i].prevout.n].scriptPubKey, i)
     else:
         assert False
 </pre>

@@ -440,7 +440,7 @@ Those proposing changes should consider that ultimately consent may rest with th
 | Derivation scheme for P2WPKH based accounts
 | Pavol Rusnak
 | Informational
-| Draft
+| Final
 |-
 | [[bip-0085.mediawiki|85]]
 | Applications
@@ -452,7 +452,7 @@ Those proposing changes should consider that ultimately consent may rest with th
 | [[bip-0086.mediawiki|86]]
 | Applications
 | Key Derivation for Single Key P2TR Outputs
-| Andrew Chow
+| Ava Chow
 | Standard
 | Draft
 |- style="background-color: #ffffcf"
@@ -483,6 +483,13 @@ Those proposing changes should consider that ultimately consent may rest with th
 | James Hilliard
 | Standard
 | Final
+|-
+| [[bip-0093.mediawiki|93]]
+| Applications
+| codex32: Checksummed SSSS-aware BIP32 seeds
+| Leon Olsson Curr, Pearlwort Sneed
+| Informational
+| Draft
 |-
 | [[bip-0098.mediawiki|98]]
 | Consensus (soft fork)
@@ -893,7 +900,7 @@ Those proposing changes should consider that ultimately consent may rest with th
 | [[bip-0174.mediawiki|174]]
 | Applications
 | Partially Signed Bitcoin Transaction Format
-| Andrew Chow
+| Ava Chow
 | Standard
 | Final
 |- style="background-color: #ffcfcf"
@@ -997,8 +1004,22 @@ Those proposing changes should consider that ultimately consent may rest with th
 |-
 | [[bip-0326.mediawiki|326]]
 | Applications
-| Anti-fee-sniping protection in taproot transactions
+| Anti-fee-sniping in taproot transactions
 | Chris Belcher
+| Informational
+| Draft
+|-
+| [[bip-0327.mediawiki|327]]
+|
+| MuSig2 for BIP340-compatible Multi-Signatures
+| Jonas Nick, Tim Ruffing, Elliott Jin
+| Informational
+| Draft
+|-
+| [[bip-0329.mediawiki|329]]
+| Applications
+| Wallet Labels Export Format
+| Craig Raw
 | Informational
 | Draft
 |-
@@ -1022,41 +1043,41 @@ Those proposing changes should consider that ultimately consent may rest with th
 | Suhas Daftuar
 | Standard
 | Draft
-|-
+|- style="background-color: #cfffcf"
 | [[bip-0340.mediawiki|340]]
 |
 | Schnorr Signatures for secp256k1
 | Pieter Wuille, Jonas Nick, Tim Ruffing
 | Standard
-| Draft
-|-
+| Final
+|- style="background-color: #cfffcf"
 | [[bip-0341.mediawiki|341]]
 | Consensus (soft fork)
 | Taproot: SegWit version 1 spending rules
 | Pieter Wuille, Jonas Nick, Anthony Towns
 | Standard
-| Draft
-|-
+| Final
+|- style="background-color: #cfffcf"
 | [[bip-0342.mediawiki|342]]
 | Consensus (soft fork)
 | Validation of Taproot Scripts
 | Pieter Wuille, Jonas Nick, Anthony Towns
 | Standard
-| Draft
-|- style="background-color: #ffffcf"
+| Final
+|- style="background-color: #cfffcf"
 | [[bip-0343.mediawiki|343]]
 | Consensus (soft fork)
 | Mandatory activation of taproot deployment
 | Shinobius, Michael Folkson
 | Standard
-| Proposed
+| Final
 |-
 | [[bip-0350.mediawiki|350]]
 | Applications
 | Bech32m format for v1+ witness addresses
 | Pieter Wuille
 | Standard
-| Draft
+| Final
 |-
 | [[bip-0351.mediawiki|351]]
 | Applications
@@ -1068,14 +1089,14 @@ Those proposing changes should consider that ultimately consent may rest with th
 | [[bip-0370.mediawiki|370]]
 | Applications
 | PSBT Version 2
-| Andrew Chow
+| Ava Chow
 | Standard
 | Draft
 |-
 | [[bip-0371.mediawiki|371]]
 | Applications
 | Taproot Fields for PSBT
-| Andrew Chow
+| Ava Chow
 | Standard
 | Draft
 |-
@@ -1089,49 +1110,56 @@ Those proposing changes should consider that ultimately consent may rest with th
 | [[bip-0380.mediawiki|380]]
 | Applications
 | Output Script Descriptors General Operation
-| Pieter Wuille, Andrew Chow
+| Pieter Wuille, Ava Chow
 | Informational
 | Draft
 |-
 | [[bip-0381.mediawiki|381]]
 | Applications
 | Non-Segwit Output Script Descriptors
-| Pieter Wuille, Andrew Chow
+| Pieter Wuille, Ava Chow
 | Informational
 | Draft
 |-
 | [[bip-0382.mediawiki|382]]
 | Applications
 | Segwit Output Script Descriptors
-| Pieter Wuille, Andrew Chow
+| Pieter Wuille, Ava Chow
 | Informational
 | Draft
 |-
 | [[bip-0383.mediawiki|383]]
 | Applications
 | Multisig Output Script Descriptors
-| Pieter Wuille, Andrew Chow
+| Pieter Wuille, Ava Chow
 | Informational
 | Draft
 |-
 | [[bip-0384.mediawiki|384]]
 | Applications
 | combo() Output Script Descriptors
-| Pieter Wuille, Andrew Chow
+| Pieter Wuille, Ava Chow
 | Informational
 | Draft
 |-
 | [[bip-0385.mediawiki|385]]
 | Applications
 | raw() and addr() Output Script Descriptors
-| Pieter Wuille, Andrew Chow
+| Pieter Wuille, Ava Chow
 | Informational
 | Draft
 |-
 | [[bip-0386.mediawiki|386]]
 | Applications
 | tr() Output Script Descriptors
-| Pieter Wuille, Andrew Chow
+| Pieter Wuille, Ava Chow
+| Informational
+| Draft
+|-
+| [[bip-0389.mediawiki|389]]
+| Applications
+| Multipath Descriptor Key Expressions
+| Ava Chow
 | Informational
 | Draft
 |}
